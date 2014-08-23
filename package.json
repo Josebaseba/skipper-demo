@@ -35,9 +35,9 @@
   "main": "app.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/josebalegarreta/kuaderno-content.git"
+    "url": "git://github.com/josebaseba/skipper-demo.git"
   },
-  "author": "josebalegarreta",
+  "author": "josebaseba",
   "license": "",
   "devDependencies": {
     "should": "^4.0.4",

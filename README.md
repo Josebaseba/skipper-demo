@@ -1,3 +1,3 @@
-# kuaderno-content
+# skipper demo
 
 a [Sails](http://sailsjs.org) application
