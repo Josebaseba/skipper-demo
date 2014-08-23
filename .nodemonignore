@@ -1,0 +1,8 @@
+/.tmp/*
+/.git/*
+**/.tmp/**
+views/*
+/assets/linker/*
+/assets/example/*
+/assets/books/*
+/public/*

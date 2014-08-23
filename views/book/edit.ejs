@@ -1,0 +1,84 @@
+<a style="margin-left: 1em;" href="/book">Go back to books</a>
+<div style="margin-top: 1em;" class="row">
+  <div class="col-md-4 col-md-offset-1">
+    <form role="form" data-control="<%= book.id %>" data-action="book_update" enctype="multipart/form-data" method="post" action="/book/update/<%= book.id %>">
+    <% if(typeof err !== "undefined"){ %>
+      <div class="alert alert-danger">
+        <%= err %>
+      </div>
+    <% } %>
+    <div class="form-group">
+      <label>Level</label>
+      <select name="level" class="form-control">
+        <% _.each(levels, function(level){ %>
+        <option value="<%= level.id %>" <% if(level.id == book.level){ %> selected="selected"<% } %>><%= level.name %></option>
+        <% }) %>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="update_title">Title</label>
+      <input type="text" name="title" class="form-control" id="update_title" placeholder="Title..." autocomplete="off" value="<%= book.title %>">
+    </div>
+    <div class="form-group">
+      <label for="update_author">Author</label>
+      <input type="text" name="author" class="form-control" id="update_author" placeholder="Author..." autocomplete="off" <% if(typeof book.author !== "undefined"){ %> value="<%= book.author %>" <% } %>>
+    </div>
+    <div class="form-group">
+      <label for="update_book_value">Book value</label>
+      <input type="number" name="book_value" class="form-control" id="update_book_value" <% if(typeof book.book_value !== "undefined"){ %> value="<%= book.book_value %>" <% } %>>
+    </div>
+    <div class="form-group">
+      <label for="quiz_value">Quiz value</label>
+      <input type="number" name="quiz_value" class="form-control" id="quiz_value" <% if(typeof book.quiz_value !== "undefined"){ %> value="<%= book.quiz_value %>" <% } %>>
+    </div>
+    <div class="form-group">
+      <label for="font">Font size</label>
+      <input type="number" name="font" class="form-control" <% if(typeof book.font !== "undefined"){ %> value="<%= book.font %>" <% } %> id="font">
+    </div>
+    <div class="form-group">
+      <label for="update_thumbnail">Thumbnail</label>
+      <input type="file" name="thumbnail" class="form-control" id="update_thumbnail">
+    </div>
+    <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+  </div>
+  <div class="col-md-3">
+    <span><b>Book cover</b></span>
+    <img id="book_thumbnail" style="width: 100%;" src="<%= book.thumbnail %>" alt="">
+  </div>
+  <div class="col-md-3">
+    <br>
+    <button type="submit" class="update-book btn btn-success btn-lg btn-block">Save changes</button>
+    <hr>
+    <br>
+    <a href="/book/<%= book.id %>/pages" class="btn btn-info btn-block btn-lg" role="button">List book pages</a>
+    <br>
+    <a href="/book/<%= book.id %>/quiz" class="btn btn-info btn-block btn-lg" role="button">List book quiz</a>
+    <hr>
+    <% if(!book.active){ %>
+      <a href="#" class="btn publish btn-success btn-block">Publish book</a>
+    <% }else{ %>
+      <a href="#" class="unpublish btn btn-warning btn-block">Unpublish book</a>
+    <% } %>
+    <hr>
+    </form>
+    <hr>
+    <hr>
+    <form action="/book/destroy/<%= book.id %>" method="post" style="float: right;" onsubmit="return confirm('Do you really want to delete the book?');">
+      <input type="hidden" name="_method" value="delete">
+      <input type="submit" class="btn btn-danger" value="Delete">
+      <input type="hidden" name="_csrf" value="<%= _csrf %>">
+    </form>
+  </div>
+</div>
+
+<div id="err_modal" class="modal fade bs-example-modal-sm in" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title" id="mySmallModalLabel">Publish error</h4>
+      </div>
+      <div class="modal-body"></div>
+    </div>
+  </div>
+</div>

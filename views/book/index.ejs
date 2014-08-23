@@ -1,0 +1,78 @@
+<ul class="pager">
+  <li><a href="/book/create">Create new book</a></li>
+</ul>
+<div style="text-align: center;">
+  <h5 style="text-align: center;">Choose level</h5>
+  <ul class="pagination">
+    <% _.each(levels, function(level){ %>
+    <li><a href="/book/level/<%= level.id %>"><%= level.position %></a></li>
+    <% }) %>
+  </ul>
+</div>
+
+<% if(typeof books !== "undefined"){ %>
+  <div>
+    <h4 style="text-align: center;"><%= type %></h4>
+    <hr>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Level</th>
+          <th>Author</th>
+          <th>(Un)publish</th>
+          <th>Pages</th>
+          <th>Quiz</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% _.each (books, function (book) { %>
+        <tr>
+          <td><%= book.title %></td>
+          <% _.each(levels, function(level){ if(level.id == book.level){ %>
+            <td><%= level.name %></td>
+          <% }}) %>
+          <td><%= book.author %></td>
+          <td>
+            <% if(!book.active){ %>
+              <a data-loading-text="Updating..." data-control="<%= book.id %>" data-action="publish" href="#" class="btn btn-success">Publish book</a>
+            <% }else{ %>
+              <a data-loading-text="Updating..." data-control="<%= book.id %>" data-action="unpublish" href="#" class="btn btn-warning">Unpublish book</a>
+            <% } %>
+          </td>
+          <td>
+            <a href="/book/<%= book.id %>/edit/1"><button type="button" class="btn btn-default">Show pages</button></a>
+          </td>
+          <td>
+            <a href="/book/<%= book.id %>/quiz/1"><button type="button" class="btn btn-default">Show quiz</button></a>
+          </td>
+          <td>
+            <a href="/book/edit/<%= book.id %>"><button type="button" class="btn btn-success">Edit</button></a>
+          </td>
+          <td>
+            <form action="/book/destroy/<%= book.id %>" method="post" onsubmit="return confirm('Do you really want to delete the book?');">
+              <input type="hidden" name="_method" value="delete">
+              <input type="submit" class="btn btn-danger" value="Delete">
+              <input type="hidden" name="_csrf" value="<%= _csrf %>">
+            </form>
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+<% } %>
+
+<div id="err_modal" class="modal fade bs-example-modal-sm in" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title" id="mySmallModalLabel">Publish error</h4>
+      </div>
+      <div class="modal-body"></div>
+    </div>
+  </div>
+</div>
