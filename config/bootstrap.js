@@ -11,7 +11,31 @@
 
 module.exports.bootstrap = function(cb) {
 
-  // It's very important to trigger this callback method when you are finished
-  // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
-  cb();
+  // CREATE A MOCK BOOK
+
+  var data = {
+    id: "53f877df99e749000004169b",
+    author: "josebaseba",
+    book_value: "100",
+    font: 17,
+    language: "EN",
+    level: 1,
+    quiz_value: "25",
+    title: "Wilfred",
+    thumbnail: "/public/books/53f877df99e749000004169b/wilfred-dancing-o.gif"
+  }
+
+  // IF BOOK EXIST DONT CREATE AGAIN
+  Book.findOne(data.id).then(function(book){
+    if(book) throw new Error("Book exist");
+    return book;
+  }).then(function(){
+    Book.create(data).exec(function(err, data){
+      return cb();
+    });
+  }).fail(function(){
+    return cb();
+  });
+
+
 };

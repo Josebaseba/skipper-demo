@@ -20,9 +20,6 @@
           <th>Title</th>
           <th>Level</th>
           <th>Author</th>
-          <th>(Un)publish</th>
-          <th>Pages</th>
-          <th>Quiz</th>
           <th>Edit</th>
           <th>Delete</th>
         </tr>
@@ -35,19 +32,6 @@
             <td><%= level.name %></td>
           <% }}) %>
           <td><%= book.author %></td>
-          <td>
-            <% if(!book.active){ %>
-              <a data-loading-text="Updating..." data-control="<%= book.id %>" data-action="publish" href="#" class="btn btn-success">Publish book</a>
-            <% }else{ %>
-              <a data-loading-text="Updating..." data-control="<%= book.id %>" data-action="unpublish" href="#" class="btn btn-warning">Unpublish book</a>
-            <% } %>
-          </td>
-          <td>
-            <a href="/book/<%= book.id %>/edit/1"><button type="button" class="btn btn-default">Show pages</button></a>
-          </td>
-          <td>
-            <a href="/book/<%= book.id %>/quiz/1"><button type="button" class="btn btn-default">Show quiz</button></a>
-          </td>
           <td>
             <a href="/book/edit/<%= book.id %>"><button type="button" class="btn btn-success">Edit</button></a>
           </td>
