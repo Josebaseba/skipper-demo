@@ -104,6 +104,8 @@ function createFile(file_name, book_id, book_path, req, res){
     dirname: book_path,
     saveAs : _saveAs
   }, function(err, file){
+    /* IN 0.10.2 AND NEWEST VERSION DOESN'T ARRIVE HERE */
+    sails.log.info("FILE UPLOADED -> Err:", err, "- File: ", file);
     if(err) return res.send(500, err);
     /* IF NO FILE REDIRECT TO BOOK EDIT TEMPLATE */
     if(!file.length) return res.redirect("book/edit/" + book_id);
@@ -119,6 +121,8 @@ function updateFile(file_name, book, book_path, req, res){
     dirname: book_path,
     saveAs : _saveAs
   }, function(err, file){
+    /* IN 0.10.2 AND NEWEST VERSION DOESN'T ARRIVE HERE */
+    sails.log.info("FILE UPLOADED -> Err:", err, "File: ", file);
     if(err) return res.send(500, err);
     /* IF NO FILE REDIRECT TO BOOK EDIT TEMPLATE */
     if(!file.length) return res.redirect("book/edit/" + book.id);
