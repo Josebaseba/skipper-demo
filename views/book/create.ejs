@@ -2,45 +2,46 @@
 <div style="margin-top: 1em;" class="row">
   <div class="col-md-4 col-md-offset-1">
     <form enctype="multipart/form-data" role="form" method="post" action="/book/create">
-    <% if(typeof err !== "undefined"){ %>
-      <div class="alert alert-danger">
-        <%= err %>
+      <% if(typeof err !== "undefined"){ %>
+        <div class="alert alert-danger">
+          <%= err %>
+        </div>
+      <% } %>
+      <div class="form-group">
+        <label>Level</label>
+        <select name="level" class="form-control">
+          <% _.each(levels, function(level){ %>
+          <option value="<%= level.id %>"><%= level.name %></option>
+          <% }) %>
+        </select>
       </div>
-    <% } %>
-    <div class="form-group">
-      <label>Level</label>
-      <select name="level" class="form-control">
-        <% _.each(levels, function(level){ %>
-        <option value="<%= level.id %>"><%= level.name %></option>
-        <% }) %>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="create_title">Title</label>
-      <input type="text" name="title" class="form-control" id="create_title" placeholder="Title..." autocomplete="off">
-    </div>
-    <div class="form-group">
-      <label for="create_author">Author</label>
-      <input type="text" name="author" class="form-control" id="create_author" placeholder="Author..." autocomplete="off">
-    </div>
-    <div class="form-group">
-      <label for="book_value">Book value</label>
-      <input type="number" name="book_value" class="form-control" id="book_value">
-    </div>
-    <div class="form-group">
-      <label for="quiz_value">Quiz value</label>
-      <input type="number" name="quiz_value" class="form-control" id="quiz_value">
-    </div>
-    <div class="form-group">
-      <label for="font">Font size</label>
-      <input type="number" name="font" class="form-control" value="17" id="font">
-    </div>
-    <div class="form-group">
-      <label for="create_thumbnail">Thumbnail</label>
-      <input type="file" name="thumbnail" class="form-control" id="create_thumbnail">
-    </div>
-    <input type="hidden" name="_csrf" value="<%= _csrf %>" />
-    <button type="submit" class="btn btn-success btn-block">Create book</button>
+      <div class="form-group">
+        <label for="create_title">Title</label>
+        <input type="text" name="title" class="form-control" id="create_title" placeholder="Title..." autocomplete="off">
+      </div>
+      <div class="form-group">
+        <label for="create_author">Author</label>
+        <input type="text" name="author" class="form-control" id="create_author" placeholder="Author..." autocomplete="off">
+      </div>
+      <div class="form-group">
+        <label for="book_value">Book value</label>
+        <input type="number" name="book_value" class="form-control" id="book_value">
+      </div>
+      <div class="form-group">
+        <label for="quiz_value">Quiz value</label>
+        <input type="number" name="quiz_value" class="form-control" id="quiz_value">
+      </div>
+      <div class="form-group">
+        <label for="font">Font size</label>
+        <input type="number" name="font" class="form-control" value="17" id="font">
+      </div>
+      <div class="form-group">
+        <label for="create_thumbnail">Thumbnail</label>
+        <input type="file" name="thumbnail" class="form-control" id="create_thumbnail">
+      </div>
+      <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+      <button type="submit" class="btn btn-success btn-block">Create book</button>
+    </form>
   </div>
   <div class="col-md-4 col-md-offset-1">
     <h4>Image preview:</h4>

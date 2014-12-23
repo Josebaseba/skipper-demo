@@ -141,7 +141,9 @@ function updateFile(file_name, book, book_path, req, res){
 
 /* UPDATE BOOK THUMBNAIL URL IN DB */
 function updateBookUrl(book_id, file_url, res){
-  Book.update({id: book_id}, {thumbnail: file_url}).exec(function(err, book_updated){
+  /* Make the url relative to serve from server */
+  var server_file_url = _G.book_path + file_url.split(_G.book_path)[1];
+  Book.update({id: book_id}, {thumbnail: server_file_url}).exec(function(err, book_updated){
     if(err) return res.serverError(err);
     return res.redirect("book/edit/" + book_id);
   });
@@ -163,6 +165,7 @@ function deleteFolderRecursive(path) {
 }
 
 /* IN FILE UPLOAD SAVE WITH A SAFE FILENAME */
-function _saveAs(file){
-  return safeFilename(file.filename);
+function _saveAs(file, cb){
+  var newName = safeFilename(file.filename);
+  return cb(null, newName);
 }
